@@ -31,12 +31,12 @@ class ConfigInitializer:
             "QnA executable path for Windows systems"
         )
         config_manager.define_setting(
-            "qna_path_linux", False, "/opt/BESClient/bin/QnA", str,
+            "qna_path_linux", False, "/opt/BESClient/bin/qna", str,
             "QnA executable path for Linux systems"
         )
         config_manager.define_setting(
             "qna_path_mac", False, 
-            "/Library/Application Support/BigFix/BES Agent/bin/QnA", str,
+            "/Library/BESAgent/BESAgent.app/Contents/MacOS/QnA", str,
             "QnA executable path for macOS systems"
         )
         

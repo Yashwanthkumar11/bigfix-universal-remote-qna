@@ -162,7 +162,8 @@ class QnARemoteDebugger:
         ttk.Button(btn_frame, text="Test QnA Path", command=self.test_qna_path).pack(
             side=tk.LEFT, padx=(0, 5))
         
-        ttk.Label(btn_frame, textvariable=self.status_var, foreground="red").pack(side=tk.RIGHT)
+        self.status_label = ttk.Label(btn_frame, textvariable=self.status_var, foreground="red")
+        self.status_label.pack(side=tk.RIGHT)
     
     def _setup_query_frame(self, parent):
         """Setup query input frame"""
@@ -390,6 +391,7 @@ class QnARemoteDebugger:
     def _update_status(self, status: str, color: str = "black"):
         """Update connection status"""
         self.status_var.set(status)
+        self.status_label.configure(foreground=color)
         self.root.update()
     
     def _toggle_connection_buttons(self, connected: bool):
