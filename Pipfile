@@ -15,6 +15,9 @@ unidecode       = "*"
 pyutils_lib = {path = "./../pyutils_lib",editable = true}
 
 [dev-packages]
+paramiko        = "*"
+cryptography    = "*"
+pyinstaller     = "*"
 path            = "*"
 pylint          = "*"
 setuptools      = "*"
