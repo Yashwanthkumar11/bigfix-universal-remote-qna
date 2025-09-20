@@ -1,3 +1,4 @@
+import os
 from bigfix_universal_remote_qna.services.config_initializer import ConfigInitializer
 from bigfix_universal_remote_qna.services.security_manager import SecurityManager
 from bigfix_universal_remote_qna.services.ssh_manager import SSHManager
@@ -27,7 +28,13 @@ class QnARemoteDebugger:
         self.security_manager = SecurityManager()
         self.ssh_manager = SSHManager()
         self.command_builder = QnACommandBuilder()
-        self.profile_manager = ProfileManager(self.config_manager, self.security_manager)
+                
+        self.profile_manager = ProfileManager(
+            self.config_manager, 
+            self.security_manager,
+            profiles_file=os.path.expanduser("~/.bigfix_profiles.json")
+        )
+        
         self.queries_manager = RecentQueriesManager(self.config_manager)
         
         # Initialize UI variables

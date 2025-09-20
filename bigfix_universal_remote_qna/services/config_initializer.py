@@ -20,7 +20,7 @@ class ConfigInitializer:
             "Main window geometry (widthxheight)"
         )
         config_manager.define_setting(
-            "save_passwords", False, False, bool, 
+            "save_passwords", False, True, bool, 
             "Whether to save passwords in encrypted form"
         )
         
@@ -46,11 +46,6 @@ class ConfigInitializer:
             "JSON array of recent queries (max 10)"
         )
         
-        # Connection profiles (stored as JSON string)
-        config_manager.define_setting(
-            "connection_profiles", False, "[]", str,
-            "JSON array of saved connection profiles"
-        )
         
         # Load the configuration after defining all settings
         config_manager.load_configuration()
