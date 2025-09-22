@@ -2,6 +2,11 @@
 __pycache__/
 *.py[codz]
 *$py.class
+.pytest_cache/
+*.py[cod]
+.mypy_cache/
+.VSCodeCounter/
+.idea/
 
 # C extensions
 *.so
@@ -25,6 +30,7 @@ share/python-wheels/
 .installed.cfg
 *.egg
 MANIFEST
+
 
 # PyInstaller
 #  Usually these files are written by a python script from a template
@@ -205,3 +211,15 @@ cython_debug/
 marimo/_static/
 marimo/_lsp/
 __marimo__/
+
+
+# Ignore these too
+mock_server_config.json
+Pipenv.lock
+Pipfile.lock
+*.dat
+.DS_Store
+*.coverage*
+htmlcov*
+*.conf
+*.conf.secrets

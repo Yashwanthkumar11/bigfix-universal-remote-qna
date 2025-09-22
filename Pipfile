@@ -1,0 +1,32 @@
+[packages]
+psutil          = "*"
+pdoc            = "*"
+defusedxml      = "*"
+certifi         = "*"
+requests        = "*"
+msal            = "*"
+urllib3         = "*"
+tqdm            = "*"
+openpyxl        = "*"
+pyyaml          = "*"
+python-dateutil = "*"
+unidecode       = "*"
+
+pyutils_lib = {path = "./../pyutils_lib",editable = true}
+
+[dev-packages]
+paramiko        = "*"
+cryptography    = "*"
+pyinstaller     = "*"
+path            = "*"
+pylint          = "*"
+setuptools      = "*"
+wheel           = "*"
+invoke          = "*"
+pytest          = "*"
+testfixtures    = "*"
+pytest-cov      = "*"
+pytest-mock     = "*"
+
+[requires]
+python_version = "3"
