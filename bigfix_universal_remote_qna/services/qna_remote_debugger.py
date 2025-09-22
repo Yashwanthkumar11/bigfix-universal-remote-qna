@@ -19,7 +19,7 @@ import tkinter.scrolledtext as scrolledtext
 class QnARemoteDebugger:
     def __init__(self, root):
         self.root = root
-        self.root.title("BigFix QnA Remote Debugger")
+        self.root.title("BigFix Universal Remote QnA")
         
         # Initialize configuration
         self.config_manager = ConfigInitializer.initialize_config()
@@ -88,6 +88,7 @@ class QnARemoteDebugger:
         self._setup_connection_frame(main_frame)
         self._setup_query_frame(main_frame)
         self._setup_results_frame(main_frame)
+        self._setup_status_bar(main_frame)
         
         # Configure grid weights
         main_frame.rowconfigure(1, weight=1)
@@ -110,7 +111,7 @@ class QnARemoteDebugger:
             row=0, column=3, padx=(0, 10))
         
         # Connection fields
-        self._add_form_field(conn_frame, 1, "Host:", self.host_var)
+        self._add_form_field(conn_frame, 1, "Host(IP):", self.host_var)
         self._add_form_field(conn_frame, 1, "Port:", self.port_var, column=2, width=10)
         self._add_form_field(conn_frame, 2, "Username:", self.username_var)
         self._add_form_field(conn_frame, 2, "Password:", self.password_var, column=2, show="*")
@@ -161,10 +162,101 @@ class QnARemoteDebugger:
         
         ttk.Button(btn_frame, text="Test QnA Path", command=self.test_qna_path).pack(
             side=tk.LEFT, padx=(0, 5))
-        
+
         self.status_label = ttk.Label(btn_frame, textvariable=self.status_var, foreground="red")
         self.status_label.pack(side=tk.RIGHT)
+
+    def _show_about_dialog(self, event=None):
+        """Show about dialog with general information"""
+        about_window = tk.Toplevel(self.root)
+        about_window.title("About BigFix Universal Remote QnA")
+        about_window.geometry("400x250")
+        about_window.resizable(False, False)
+        
+        # Center the about window
+        about_window.transient(self.root)
+        about_window.grab_set()
+        
+        # Main frame
+        main_frame = ttk.Frame(about_window, padding="20")
+        main_frame.pack(fill=tk.BOTH, expand=True)
+        
+        # App title
+        title_label = ttk.Label(main_frame, text="BigFix Universal Remote QnA", 
+                               font=('Arial', 14, 'bold'))
+        title_label.pack(pady=(0, 10))
+        
+        # Version
+        ttk.Label(main_frame, text="Version 1.0.0", 
+                 font=('Arial', 10)).pack(pady=(0, 10))
+        
+        # Description
+        desc_text = ("A cross-platform tool for executing BigFix QnA queries\n"
+                    "remotely via SSH on Windows, Linux, and macOS systems.")
+        ttk.Label(main_frame, text=desc_text, 
+                 font=('Arial', 9), justify=tk.CENTER, wraplength=350).pack(pady=(0, 20))
+         # Close button
+        ttk.Button(main_frame, text="Close",
+               command=about_window.destroy).pack(pady=(10, 0))   
+
+    def _show_developer_dialog(self, event=None):
+        """Show developer information dialog"""           
+        dev_window = tk.Toplevel(self.root)
+        dev_window.title("Developer Information")
+        dev_window.geometry("350x150")
+        dev_window.resizable(False, False)
+
+        dev_window.transient(self.root)
+        dev_window.grab_set()   
+ 
+        dev_frame = ttk.Frame(dev_window, padding="15")
+        dev_frame.pack(fill=tk.BOTH, expand=True)
+        
+        ttk.Label(dev_frame, text="Name:", font=('Arial', 9, 'bold')).grid(
+            row=0, column=0, sticky=tk.W, pady=(0, 5))
+        ttk.Label(dev_frame, text="Yashwanth Kumar Bhuvanagiri", font=('Arial', 9)).grid(
+            row=0, column=1, sticky=tk.W, padx=(10, 0), pady=(0, 5))
+        
+        ttk.Label(dev_frame, text="Company Email:", font=('Arial', 9, 'bold')).grid(
+            row=1, column=0, sticky=tk.W, pady=(0, 5))
+        
+        email_label = ttk.Label(dev_frame, text="bhuvanagiri.yashw@hcl.com", 
+                               font=('Arial', 9), foreground='blue', cursor='hand2')
+        email_label.grid(row=1, column=1, sticky=tk.W, padx=(10, 0), pady=(0, 5))
+        email_label.bind('<Button-1>', lambda event: self._open_email('company'))
+
+        ttk.Label(dev_frame, text="Personal Email:", font=('Arial', 9, 'bold')).grid(
+            row=2, column=0, sticky=tk.W, pady=(0, 5))
+        
+        email_label_personal = ttk.Label(dev_frame, text="yb91374@gmail.com", 
+                               font=('Arial', 9), foreground='blue', cursor='hand2')
+        email_label_personal.grid(row=2, column=1, sticky=tk.W, padx=(10, 0), pady=(0, 5))
+        email_label_personal.bind('<Button-1>', lambda event: self._open_email('personal'))
+        
+        # ttk.Label(dev_frame, text="GitHub:", font=('Arial', 9, 'bold')).grid(
+        #     row=2, column=0, sticky=tk.W)
+        
+        # github_label = ttk.Label(dev_frame, text="github.com/user/qna", 
+        #                         font=('Arial', 9), foreground='blue', cursor='hand2')
+        # github_label.grid(row=2, column=1, sticky=tk.W, padx=(10, 0))
+        # github_label.bind('<Button-1>', self._open_github)
+        
+        # Close button
+        ttk.Button(dev_frame, text="Close", 
+                  command=dev_window.destroy).grid(row=3, column=0, columnspan=2, pady=(10, 0))
     
+    def _open_email(self, email_type, event=None):
+        import webbrowser
+        if email_type == 'personal':
+            webbrowser.open("https://mail.google.com/mail/?view=cm&fs=1&to=yb91374@gmail.com")
+        else:
+            webbrowser.open("https://mail.google.com/mail/?view=cm&fs=1&to=bhuvanagiri.yashw@hcl.com")
+
+    def _open_github(self, event=None):
+        """Open GitHub repository"""
+        import webbrowser
+        webbrowser.open("https://github.com/")
+
     def _setup_query_frame(self, parent):
         """Setup query input frame"""
         query_frame = ttk.LabelFrame(parent, text="Relevance Query", padding="5")
@@ -207,7 +299,36 @@ class QnARemoteDebugger:
         
         self.results_text = scrolledtext.ScrolledText(results_frame, height=15, width=80)
         self.results_text.grid(row=0, column=0, sticky=(tk.W, tk.E, tk.N, tk.S))
-    
+
+    def _setup_status_bar(self, parent):
+        """Setup status bar with developer attribution"""
+        status_frame = ttk.Frame(parent)
+        status_frame.grid(row=3, column=0, columnspan=2, sticky=(tk.W, tk.E), pady=(5, 0))
+        status_frame.columnconfigure(1, weight=1)
+        
+        # Developer attribution on the left
+        dev_frame = ttk.Frame(status_frame)
+        dev_frame.grid(row=0, column=0, sticky=tk.W)
+        
+        ttk.Label(dev_frame, text="Developed by:", 
+                 font=('Arial', 8), foreground='gray').pack(side=tk.LEFT)
+
+        #developer details
+        dev_link = ttk.Label(dev_frame, text="Yashwanth Bhuvanagiri (bhuvanagiri.yashw@hcl.com)", 
+                            font=('Arial', 8), foreground='blue', cursor='hand2')
+        dev_link.pack(side=tk.LEFT, padx=(5, 0))
+        dev_link.bind('<Button-1>', self._show_developer_dialog)
+
+        # Version info
+        ttk.Label(status_frame, text="v1.0.0", 
+                 font=('Arial', 8), foreground='gray').grid(row=0, column=1)
+
+        # About link
+        about_link = ttk.Label(status_frame, text="About", font=('Arial', 8), foreground='blue', cursor='hand2')
+        about_link.grid(row=0, column=2, sticky=tk.E)
+        about_link.bind('<Button-1>', self._show_about_dialog)
+
+
     def _load_saved_settings(self):
         """Load and apply saved settings"""
         # Update UI dropdowns
@@ -391,7 +512,8 @@ class QnARemoteDebugger:
     def _update_status(self, status: str, color: str = "black"):
         """Update connection status"""
         self.status_var.set(status)
-        self.status_label.configure(foreground=color)
+        if hasattr(self, 'status_label'):
+            self.status_label.configure(foreground= color)
         self.root.update()
     
     def _toggle_connection_buttons(self, connected: bool):

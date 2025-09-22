@@ -1,7 +1,7 @@
 from pyutils_lib.services.config_manager import ConfigManager   # pyright: ignore[reportMissingImports]
 
 class ConfigInitializer:
-    """Initialize all configuration settings using your ConfigManager"""
+    """Initialize all configuration settings using ConfigManager"""
     
     @staticmethod
     def initialize_config():
