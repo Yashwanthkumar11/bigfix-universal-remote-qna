@@ -195,9 +195,19 @@ class QnARemoteDebugger:
                     "remotely via SSH on Windows, Linux, and macOS systems.")
         ttk.Label(main_frame, text=desc_text, 
                  font=('Arial', 9), justify=tk.CENTER, wraplength=350).pack(pady=(0, 20))
-         # Close button
-        ttk.Button(main_frame, text="Close",
-               command=about_window.destroy).pack(pady=(10, 0))   
+
+        # Developer info
+        dev_frame = ttk.Frame(main_frame)
+        dev_frame.pack(side=tk.BOTTOM, anchor='se', pady=(0, 2), padx=(0, 2), fill=tk.X, expand=False)
+
+        dev_by_label = ttk.Label(dev_frame, text="Developed by ", font=('Arial', 8), foreground='gray')
+        dev_by_label.pack(side=tk.LEFT)
+
+        dev_name_label = ttk.Label(dev_frame, text="Yashwanth Bhuvanagiri",
+                                   font=('Arial', 8), foreground='blue', cursor='hand2')
+        dev_name_label.pack(side=tk.LEFT)
+        dev_name_label.bind('<Button-1>', self._show_developer_dialog)
+
 
     def _show_developer_dialog(self, event=None):
         """Show developer information dialog"""           
@@ -217,45 +227,34 @@ class QnARemoteDebugger:
         ttk.Label(dev_frame, text="Yashwanth Kumar Bhuvanagiri", font=('Arial', 9)).grid(
             row=0, column=1, sticky=tk.W, padx=(10, 0), pady=(0, 5))
         
-        ttk.Label(dev_frame, text="Company Email:", font=('Arial', 9, 'bold')).grid(
+        ttk.Label(dev_frame, text="Email:", font=('Arial', 9, 'bold')).grid(
             row=1, column=0, sticky=tk.W, pady=(0, 5))
         
-        email_label = ttk.Label(dev_frame, text="bhuvanagiri.yashw@hcl.com", 
+        email_label = ttk.Label(dev_frame, text="yb91374@gmail.com", 
                                font=('Arial', 9), foreground='blue', cursor='hand2')
         email_label.grid(row=1, column=1, sticky=tk.W, padx=(10, 0), pady=(0, 5))
-        email_label.bind('<Button-1>', lambda event: self._open_email('company'))
+        email_label.bind('<Button-1>', lambda event: self._open_email())
 
-        ttk.Label(dev_frame, text="Personal Email:", font=('Arial', 9, 'bold')).grid(
-            row=2, column=0, sticky=tk.W, pady=(0, 5))
+        ttk.Label(dev_frame, text="GitHub:", font=('Arial', 9, 'bold')).grid(
+            row=2, column=0, sticky=tk.W)
         
-        email_label_personal = ttk.Label(dev_frame, text="yb91374@gmail.com", 
-                               font=('Arial', 9), foreground='blue', cursor='hand2')
-        email_label_personal.grid(row=2, column=1, sticky=tk.W, padx=(10, 0), pady=(0, 5))
-        email_label_personal.bind('<Button-1>', lambda event: self._open_email('personal'))
-        
-        # ttk.Label(dev_frame, text="GitHub:", font=('Arial', 9, 'bold')).grid(
-        #     row=2, column=0, sticky=tk.W)
-        
-        # github_label = ttk.Label(dev_frame, text="github.com/user/qna", 
-        #                         font=('Arial', 9), foreground='blue', cursor='hand2')
-        # github_label.grid(row=2, column=1, sticky=tk.W, padx=(10, 0))
-        # github_label.bind('<Button-1>', self._open_github)
+        github_label = ttk.Label(dev_frame, text="Yashwanthkumar11/bigfix-universal-remote-qna", 
+                                font=('Arial', 9), foreground='blue', cursor='hand2')
+        github_label.grid(row=2, column=1, sticky=tk.W, padx=(10, 0))
+        github_label.bind('<Button-1>', self._open_github)
         
         # Close button
         ttk.Button(dev_frame, text="Close", 
                   command=dev_window.destroy).grid(row=3, column=0, columnspan=2, pady=(10, 0))
     
-    def _open_email(self, email_type, event=None):
+    def _open_email(self, event=None):
         import webbrowser
-        if email_type == 'personal':
-            webbrowser.open("https://mail.google.com/mail/?view=cm&fs=1&to=yb91374@gmail.com")
-        else:
-            webbrowser.open("https://mail.google.com/mail/?view=cm&fs=1&to=bhuvanagiri.yashw@hcl.com")
+        webbrowser.open("https://mail.google.com/mail/?view=cm&fs=1&to=yb91374@gmail.com")
 
     def _open_github(self, event=None):
         """Open GitHub repository"""
         import webbrowser
-        webbrowser.open("https://github.com/")
+        webbrowser.open("https://github.com/Yashwanthkumar11/bigfix-universal-remote-qna")
 
     def _setup_query_frame(self, parent):
         """Setup query input frame"""
@@ -306,19 +305,6 @@ class QnARemoteDebugger:
         status_frame.grid(row=3, column=0, columnspan=2, sticky=(tk.W, tk.E), pady=(5, 0))
         status_frame.columnconfigure(1, weight=1)
         
-        # Developer attribution on the left
-        dev_frame = ttk.Frame(status_frame)
-        dev_frame.grid(row=0, column=0, sticky=tk.W)
-        
-        ttk.Label(dev_frame, text="Developed by:", 
-                 font=('Arial', 8), foreground='gray').pack(side=tk.LEFT)
-
-        #developer details
-        dev_link = ttk.Label(dev_frame, text="Yashwanth Bhuvanagiri (bhuvanagiri.yashw@hcl.com)", 
-                            font=('Arial', 8), foreground='blue', cursor='hand2')
-        dev_link.pack(side=tk.LEFT, padx=(5, 0))
-        dev_link.bind('<Button-1>', self._show_developer_dialog)
-
         # Version info
         ttk.Label(status_frame, text="v1.0.0", 
                  font=('Arial', 8), foreground='gray').grid(row=0, column=1)
