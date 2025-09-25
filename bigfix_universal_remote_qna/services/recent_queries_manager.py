@@ -3,7 +3,7 @@ import json
 
 
 class RecentQueriesManager:
-    """Manages recent queries using ConfigManager"""
+    """Manages recent queries using SimpleConfigManager"""
     
     def __init__(self, config_manager, max_queries: int = 10):
         self.config_manager = config_manager
@@ -36,10 +36,4 @@ class RecentQueriesManager:
         
         # Save back to config
         queries_json = json.dumps(queries)
-        try:
-            self.config_manager.define_setting(
-                "recent_queries", False, queries_json, str,
-                "JSON array of recent queries (max 10)"
-            )
-        except:
-            pass
+        self.config_manager.set_setting("recent_queries", queries_json)

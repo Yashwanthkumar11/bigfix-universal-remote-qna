@@ -1,12 +1,12 @@
-from pyutils_lib.services.config_manager import ConfigManager   # pyright: ignore[reportMissingImports]
+from bigfix_universal_remote_qna.utilities.simple_config import SimpleConfigManager
 
 class ConfigInitializer:
-    """Initialize all configuration settings using ConfigManager"""
+    """Initialize all configuration settings using SimpleConfigManager"""
     
     @staticmethod
     def initialize_config():
         """Define all configuration settings"""
-        config_manager = ConfigManager()
+        config_manager = SimpleConfigManager()
         
         # Connection settings
         config_manager.define_setting(
@@ -45,7 +45,6 @@ class ConfigInitializer:
             "recent_queries", False, "[]", str,
             "JSON array of recent queries (max 10)"
         )
-        
         
         # Load the configuration after defining all settings
         config_manager.load_configuration()
