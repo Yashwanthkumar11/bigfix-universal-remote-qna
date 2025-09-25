@@ -342,13 +342,7 @@ class QnARemoteDebugger:
     
     def _save_password_preference(self):
         """Save password preference setting"""
-        try:
-            self.config_manager.define_setting(
-                "save_passwords", False, self.save_passwords_var.get(), bool,
-                "Whether to save passwords in encrypted form"
-            )
-        except:
-            pass
+        self.config_manager.set_setting("save_passwords", self.save_passwords_var.get())
     
     def _get_qna_path_for_os(self, os_type: str) -> str:
         """Get QnA path for specified OS"""
@@ -423,13 +417,7 @@ class QnARemoteDebugger:
             profiles = self.profile_manager.get_all_profiles()
             for i, p in enumerate(profiles):
                 if p.name == profile_name:
-                    try:
-                        self.config_manager.define_setting(
-                            "last_used_connection_index", False, i, int,
-                            "Index of the last used connection profile"
-                        )
-                    except:
-                        pass
+                    self.config_manager.set_setting("last_used_connection_index", i)
                     break
     
     def _load_profile_data(self, profile: ConnectionProfile):
@@ -630,13 +618,7 @@ class QnARemoteDebugger:
     def on_closing(self):
         """Handle application closing"""
         # Save current window geometry
-        try:
-            self.config_manager.define_setting(
-                "window_geometry", False, self.root.geometry(), str,
-                "Main window geometry (widthxheight)"
-            )
-        except:
-            pass
+        self.config_manager.set_setting("window_geometry", self.root.geometry())
         
         # Disconnect SSH if connected
         if self.ssh_manager.connected:

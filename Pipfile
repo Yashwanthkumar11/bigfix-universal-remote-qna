@@ -12,8 +12,6 @@ pyyaml          = "*"
 python-dateutil = "*"
 unidecode       = "*"
 
-pyutils_lib = {path = "./../pyutils_lib",editable = true}
-
 [dev-packages]
 paramiko        = "*"
 cryptography    = "*"
