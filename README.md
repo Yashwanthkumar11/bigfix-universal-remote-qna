@@ -20,7 +20,7 @@ A cross-platform GUI application for executing BigFix QnA (Relevance) queries re
 ## 🚀 Quick Start
 
 ### Using the Executable
-1. Download `BigFixUniversalRemoteQnA.exe`
+1. Download the latest version of `BigFixUniversalRemoteQnA.exe` from [here](https://github.com/Yashwanthkumar11/bigfix-universal-remote-qna/releases/latest).
 2. Run the application
 3. Configure connection settings
 4. Connect and execute queries

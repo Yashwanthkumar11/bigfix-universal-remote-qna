@@ -200,14 +200,9 @@ class QnARemoteDebugger:
         dev_frame = ttk.Frame(main_frame)
         dev_frame.pack(side=tk.BOTTOM, anchor='se', pady=(0, 2), padx=(0, 2), fill=tk.X, expand=False)
 
-        dev_by_label = ttk.Label(dev_frame, text="Developed by ", font=('Arial', 8), foreground='gray')
+        dev_by_label = ttk.Label(dev_frame, text="Developer info", font=('Arial', 8), foreground='blue', cursor='hand2')
         dev_by_label.pack(side=tk.LEFT)
-
-        dev_name_label = ttk.Label(dev_frame, text="Yashwanth Bhuvanagiri",
-                                   font=('Arial', 8), foreground='blue', cursor='hand2')
-        dev_name_label.pack(side=tk.LEFT)
-        dev_name_label.bind('<Button-1>', self._show_developer_dialog)
-
+        dev_by_label.bind('<Button-1>', self._show_developer_dialog)
 
     def _show_developer_dialog(self, event=None):
         """Show developer information dialog"""           
