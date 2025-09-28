@@ -39,7 +39,7 @@ pipenv run python main.py
 # Alternative: Activate shell then run
 pipenv shell
 python main.py
-
+```
 ## 📋 Usage
 
 ### 1. Connection Setup
